@@ -35,15 +35,11 @@ Window.load_resources do
   pass = Image.new(20, 20, [192, 192, 192])  # 通った道
 
   # 迷路を表示
-  def draw_map(map, block, start, goal, pass)   
+  def draw_map(map, block, pass)   
       (0..15).each do |i|
           (0..15).each do |j|
               if map[i][j] == 1
                   Window.draw(j * 20, i * 20, block)
-              elsif map[i][j] == 2
-                  Window.draw(j * 20, i * 20, start)
-              elsif map[i][j] == 3
-                  Window.draw(j * 20, i * 20, goal)
               elsif map[i][j] == 5
                   Window.draw(j * 20, i * 20, pass)
               end

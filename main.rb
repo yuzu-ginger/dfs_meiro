@@ -62,7 +62,7 @@ Window.load_resources do
             newy = y + dy[i]
             next if map[newx][newy] == 1 || map[newx][newy] == 9
             dfs(map, ar, newx, newy)
-            ar << [x, y]
+            # ar << [x, y] 帰りがけ
         end
     end
 

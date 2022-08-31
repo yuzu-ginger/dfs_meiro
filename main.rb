@@ -25,7 +25,7 @@ Window.load_resources do
 
     # ウィンドウの大きさ
     Window.width = 320
-    Window.height = 320
+    Window.height = 360
 
     # ブロック
     block = Image.new(20, 20, C_WHITE)         # 壁
@@ -62,7 +62,7 @@ Window.load_resources do
             newy = y + dy[i]
             next if map[newx][newy] == 1 || map[newx][newy] == 9
             dfs(map, ar, newx, newy)
-            # ar << [x, y] 帰りがけ
+            # ar << [x, y] 
         end
     end
 
@@ -71,6 +71,7 @@ Window.load_resources do
     x = 1
     y = 1
     status = 0
+    step = 0
 
     Window.loop do
         draw_map(map, block, pass)           # 迷路
@@ -80,6 +81,7 @@ Window.load_resources do
         # ゴールでないとき
         case status
         when 0
+            step += 1
             i = ar[0][0]
             j = ar[0][1]
             Window.draw(j * 20, i * 20, player)
@@ -88,5 +90,6 @@ Window.load_resources do
             sleep(0.1)
             status = 1 if i == 12 && j == 12  # ゴールに着いたら
         end
+        Window.draw_font(10, 330, "#{step}", counter)
     end
 end

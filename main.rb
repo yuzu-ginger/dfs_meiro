@@ -33,6 +33,7 @@ Window.load_resources do
     start = Image.new(20, 20, C_RED)           # スタート地点
     goal = Image.new(20, 20, C_GREEN)          # ゴール地点
     pass = Image.new(20, 20, [192, 192, 192])  # 通った道
+    route = Image.new(20, 20, [255, 255, 165, 0])
     counter = Font.new(30, "MS ゴシック", :weight=>true)
 
     # 迷路を表示

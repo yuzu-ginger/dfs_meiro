@@ -83,8 +83,8 @@ Window.load_resources do
     step = 0
 
     def road(routes, route)
-        for i in 0..15
-            for j in 0..15
+        (0..15).each do |i|
+            (0..15).each do |j|
                 if routes[i][j] == 1
                     Window.draw(j * 20, i * 20, route)
                 end

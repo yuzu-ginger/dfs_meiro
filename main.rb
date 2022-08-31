@@ -49,30 +49,47 @@ Window.load_resources do
     end
 
     # DFS(深さ優先探索)
-    def dfs(map, ar, x, y)
-        if map[x][y] == 0
+    def dfs(map, ar, x, y, routes)
+        if map[x][y] == 0   # 行きがけ
             ar << [x, y]
         end
-        map[x][y] = 9       # 通った道->9
+        map[x][y] = 9
+        return true if x == 10 && y == 10
+        f = false
         dx = [1, -1, 0, 0]
         dy = [0, 0, 1, -1]
-
-        # 進める方向を探索
         4.times do |i|
             newx = x + dx[i]
             newy = y + dy[i]
             next if map[newx][newy] == 1 || map[newx][newy] == 9
-            dfs(map, ar, newx, newy)
-            # ar << [x, y] 
+            if dfs(map, ar, newx, newy, routes)
+                if !f
+                    routes[newx][newy] = 1
+                    f = true
+                end
+            end
+            # ar << [x, y]
         end
+        return f
     end
 
     ar = []
-    dfs(map, ar, 1, 1)
+    routes = Array.new(16){ Array.new(16) }
+    dfs(map, ar, 1, 1, routes)
     x = 1
     y = 1
     status = 0
     step = 0
+
+    def road(routes, route)
+        for i in 0..15
+            for j in 0..15
+                if routes[i][j] == 1
+                    Window.draw(j * 20, i * 20, route)
+                end
+            end
+        end
+    end
 
     Window.loop do
         draw_map(map, block, pass)           # 迷路
@@ -90,6 +107,9 @@ Window.load_resources do
             map[i][j] = 5
             sleep(0.1)
             status = 1 if i == 10 && j == 10  # ゴールに着いたら
+        when 1
+            sleep(1)
+            road(routes, route)
         end
         Window.draw_font(10, 330, "#{step}", counter)
     end
